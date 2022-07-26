@@ -1,0 +1,38 @@
+
+ul{
+    list-style: none;
+    text-decoration: none;
+    /* border-bottom: 1px solid black; */
+  }
+  .menu{
+    height: 1000px;
+    width: 200px;
+    background-color: orange;
+    /* border: 1px solid black; */
+  }
+  /* .menu ul li:hover{
+    background-color: aqua;
+  } */
+  .menu ul{
+    padding: 0 !important; 
+     text-align: center; 
+  }
+  .menu ul li{
+    border-bottom: 2px solid white;
+  }
+  
+  .menu ul li a{
+    text-decoration: none;
+    color: azure;
+     font-size: 20px;
+    display: block;
+    /* padding-top: 20px; */
+    height: 50px;
+    line-height: 50px;
+    
+    
+   
+    
+   
+  }
+  
