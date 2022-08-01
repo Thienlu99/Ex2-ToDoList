@@ -13,6 +13,7 @@ Todolistitem.defaultProps = {
 };
 function Todolistitem(props) {
   // taskStatus
+  //destructring Assigment
   const { taskName, taskAuthor, taskDess } = props;
 
   // React.useState
