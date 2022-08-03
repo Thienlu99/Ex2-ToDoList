@@ -7,19 +7,19 @@ Sidebar.propTypes = {};
 function Sidebar(props) {
   return (
     <div className="col-md-2 pd-0">
-      <div class="menu">
+      <div className="menu">
         <ul>
           <li className="menu-color">
-           <Link to="/"> <a href="">All Task</a></Link>
+           <Link to="/"> All Task</Link>
           </li>
           <li>
-          <Link to="/newtask"> <a href="">New Task</a></Link>
+          <Link to="/newtask"> New Task</Link>
           </li>
           <li>
-          <Link to="/doingtask"> <a href="">Doing Task</a></Link>
+          <Link to="/doingtask"> Doing Task</Link>
           </li>
           <li>
-          <Link to="/donetask"> <a href="">Done Task</a></Link>
+          <Link to="/donetask"> Done Task</Link>
           </li>
         </ul>
       </div>

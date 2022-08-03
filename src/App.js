@@ -2,7 +2,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./layout/header/Header";
 import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
-import AddNewForm from "./layout/body/AddNewForm";
 import Home from "./layout/home/Home";
 import Body from "./layout/body/Body";
 function App() {

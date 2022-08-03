@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Headerright from '../../components/header/Headerright';
-import Headerleft from '../../components/header/Headerleft';
+import Headerright from '../../components/Button/Headerright';
+import Headerleft from '../../components/Button/Headerleft';
 import { Link,Navlink } from "react-router-dom";
 header.propTypes = {
     

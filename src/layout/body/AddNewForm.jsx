@@ -1,72 +1,111 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import InputText from '../../components/InputText';
-import Button from '../../components/Button';
-import Form from 'react-bootstrap/Form';
-import "./AddNewForm.scss";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import InputText from "../../components/InputText";
+import Button from "../../components/Button";
+import Form from "react-bootstrap/Form";
+import isEmpty from "validator/lib/isEmpty"
 
-
-AddNewForm.propTypes = {
-    
-};
+AddNewForm.propTypes = {};
 
 function AddNewForm(props) {
-    const { formClass, handleSubmit } = props;
-    // React.useState
+  const [formValue, setFormValue] = useState("");
+  // React.useState
   //es6
   const [title, setTitle] = useState("");
   const [creator, setCreator] = useState("");
   const [description, setDescription] = useState("");
-    return (
-        <div className='add'>
-            {/* <form action="" onSubmit={handleSubmit} className={`formClassContainer ${formClass}`}>
-                <InputText 
-                    label={'Title'}
-                    placeholder = {'Type title'}
-                    name={'title'}
-                    value={title}
-                    onChange ={(e) => setTitle(e.target.value)}
-                />
-                <InputText 
-                    label={'Creator'}
-                    placeholder = {'Name of Creator'}
-                    name={'creator'}
-                    value={creator}
-                    onChange ={(e) => setCreator(e.target.value)}
-                />
-                <InputText 
-                    label={'Desscription'}
-                    placeholder = {'Desscription Details'}
-                    name={'description'}
-                    value={description}
-                    onChange ={(e) => setDescription(e.target.value)}
-                />
-            </form>
-            <div>
-                <Button className="btn btn-primary"
-                    title={'Save'} type={'submit'}
-                />
-            </div> */}
+  const [vallidate,setValidate] = useState("");
+  
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    // setTitleValue(e.target.value);
+  };
+  const HandelChangeTitle = (event) =>{
+    setTitle(event.target.value);
+  }
+  const HandelChangeCreator = (event) =>{
+    setCreator(event.target.value);
+  }
+  const HandelChangeTitleDescription = (event) =>{
+    setDescription(event.target.value);
+  }
+  const validateAll = () =>{
+    const msg = {};
+    if(isEmpty(title)){
+      msg.title = "*Please input your Title"
+    }
 
-            <Form>
-      <Form.Group className="mb-3" controlId="">
-        <Form.Label>Title</Form.Label>
-        <Form.Control type="text" placeholder="" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="">
-        <Form.Label>Creator</Form.Label>
-        <Form.Control type="text" placeholder="" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="">
-        <Form.Label>Desscription</Form.Label>
-        <Form.Control type="text" placeholder="" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="">
-      <button className='btn btn-primary'>Save</button>
-      </Form.Group>
-    </Form>
+    if(isEmpty(creator)){
+      msg.creator = "*Please input your Creator"
+    }
+
+    if(isEmpty(description)){
+      msg.description = "*Please input your Description"
+    }
+    
+    setValidate(msg);
+    if(Object.keys(msg).length >0) return false;
+    return true;
+  }
+  const onSubmitSave = (event) =>{
+    // event.preventdefault();
+    const isValid = validateAll()
+    if(!isValid) return;
+    //call API
+
+    localStorage.setItem("data", JSON.stringify(formValue));
+  }
+  // handChangeFor
+  return (
+    <div className="">
+      <Form>
+        {/* <input type="number" name="index" id="index" value="" hidden="true" /> */}
+        <div className="form-group row mb-3 mt-3">
+          <label htmlFor="txtTitle" className="col-md-3 col-form-label">
+            Title:
+          </label>
+          <div className="col-md-7">
+            <input type="text" className="form-control" id="txtTitle" value={formValue.title} onChange={(event) =>{HandelChangeTitle(event)}} />
+            <span className="text-danger" id="startError">{vallidate.title}</span>
+          </div>
         </div>
-    );
+
+        <div className="form-group row mb-3">
+          <label htmlFor="txtCreator" className="col-md-3 col-form-label">
+            Creator:
+          </label>
+          <div className="col-md-7">
+            <input type="text" className="form-control" id="txtCreator" value={formValue.creator} onChange={(event) =>{HandelChangeCreator(event)}}/>
+            <span className="text-danger" id="startError">{vallidate.creator}</span>
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="txtDescription" className="col-md-3 col-form-label">
+            Description:
+          </label>
+          <div className="col-md-7">
+            <input type="text" className="form-control" id="txtDescription"  value={formValue.description} onChange={(event) =>{HandelChangeTitleDescription(event)}}/>
+            <span className="text-danger" id="startError">{vallidate.description}</span>
+          </div>
+        </div>
+
+        {/* <!-- end input --> */}
+        <div className="form-group row mb-3" >
+          <div className="col-md-12">
+            <input style={{margin: "0 auto", display:"block"}}
+              type="button"
+              id="btnCalculate"
+              className="btn btn-primary btn-block"
+              value="Save"
+              onClick={(event) => onSubmitSave(event)}
+            />
+          </div>
+        
+        </div>
+      </Form>
+    </div>
+  );
 }
 
 export default AddNewForm;

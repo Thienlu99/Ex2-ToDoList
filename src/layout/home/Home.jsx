@@ -83,8 +83,9 @@ function Home(props) {
       },
 
     ];
+    //  todoList = JSON.parse(localStorage.getItem("data")) || [];
     const renderTodoItem = () =>{
-      return todoList.map((item,index) => (
+      return  todoList.map((item,index) => (
         <Todolistitem 
           key = {`${item.taskName}_${index}`}
           taskName= {item.taskName}
@@ -92,7 +93,9 @@ function Home(props) {
           taskStatus= {item.taskStatus}
           taskDess= {item.taskDess}
         />
+     
       ));
+      
     }
     return (
         <div className='container-fluid'>
