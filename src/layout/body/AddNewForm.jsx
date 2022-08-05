@@ -1,45 +1,52 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import InputText from "../../components/InputText";
-import Button from "../../components/Button";
+// import InputText from "../../components/InputText";
+// import Button from "../../components/Button";
 import Form from "react-bootstrap/Form";
 import isEmpty from "validator/lib/isEmpty"
-
+import { useNavigate } from "react-router-dom";
 AddNewForm.propTypes = {};
 
 function AddNewForm(props) {
-  const [formValue, setFormValue] = useState("");
+  //navigate chuyen trang home
+  let navigate = useNavigate();
+
+ 
   // React.useState
   //es6
-  const [title, setTitle] = useState("");
-  const [creator, setCreator] = useState("");
-  const [description, setDescription] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [creator, setCreator] = useState("");
+  // const [description, setDescription] = useState("");
   const [vallidate,setValidate] = useState("");
   
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    // setTitleValue(e.target.value);
+  const [formValue, setFormValue] = useState({
+    title: "",
+    author: "",
+    description: "",
+    status: "new",
+  });
+  console.log(formValue);
+  // const handleChange = (e) => {
+  //   console.log(e.target.value);
+  //   // setTitleValue(e.target.value);
+  // };
+  const handleChangeFile = (event) => {
+    setFormValue({
+      ...formValue,
+      [event.target.name]: event.target.value,
+    });
   };
-  const HandelChangeTitle = (event) =>{
-    setTitle(event.target.value);
-  }
-  const HandelChangeCreator = (event) =>{
-    setCreator(event.target.value);
-  }
-  const HandelChangeTitleDescription = (event) =>{
-    setDescription(event.target.value);
-  }
   const validateAll = () =>{
     const msg = {};
-    if(isEmpty(title)){
+    if(isEmpty(formValue.title)){
       msg.title = "*Please input your Title"
     }
 
-    if(isEmpty(creator)){
-      msg.creator = "*Please input your Creator"
+    if(isEmpty(formValue.author)){
+      msg.author = "*Please input your Author"
     }
 
-    if(isEmpty(description)){
+    if(isEmpty(formValue.description)){
       msg.description = "*Please input your Description"
     }
     
@@ -52,8 +59,13 @@ function AddNewForm(props) {
     const isValid = validateAll()
     if(!isValid) return;
     //call API
-
-    localStorage.setItem("data", JSON.stringify(formValue));
+    let arr = JSON.parse(localStorage.getItem('data')) || [];
+    arr.push(formValue);
+     //save to localstorage
+    //  var json = JSON.stringify(arr);
+    //  console.log(json);
+    localStorage.setItem("data", JSON.stringify(arr));
+    navigate('/');
   }
   // handChangeFor
   return (
@@ -61,22 +73,22 @@ function AddNewForm(props) {
       <Form>
         {/* <input type="number" name="index" id="index" value="" hidden="true" /> */}
         <div className="form-group row mb-3 mt-3">
-          <label htmlFor="txtTitle" className="col-md-3 col-form-label">
+          <label htmlFor="txtTitle" className="col-md-3 col-form-label" >
             Title:
           </label>
           <div className="col-md-7">
-            <input type="text" className="form-control" id="txtTitle" value={formValue.title} onChange={(event) =>{HandelChangeTitle(event)}} />
+            <input type="text" className="form-control" id="txtTitle" name="title" value={formValue.title} onChange={(event) =>{handleChangeFile(event)}} />
             <span className="text-danger" id="startError">{vallidate.title}</span>
           </div>
         </div>
 
         <div className="form-group row mb-3">
           <label htmlFor="txtCreator" className="col-md-3 col-form-label">
-            Creator:
+            Author:
           </label>
           <div className="col-md-7">
-            <input type="text" className="form-control" id="txtCreator" value={formValue.creator} onChange={(event) =>{HandelChangeCreator(event)}}/>
-            <span className="text-danger" id="startError">{vallidate.creator}</span>
+            <input type="text" className="form-control" id="txtAuthor" name="author" value={formValue.author} onChange={(event) =>{handleChangeFile(event)}}/>
+            <span className="text-danger" id="startError">{vallidate.author}</span>
           </div>
         </div>
 
@@ -85,7 +97,7 @@ function AddNewForm(props) {
             Description:
           </label>
           <div className="col-md-7">
-            <input type="text" className="form-control" id="txtDescription"  value={formValue.description} onChange={(event) =>{HandelChangeTitleDescription(event)}}/>
+            <input type="text" className="form-control" id="txtDescription" name="description"  value={formValue.description} onChange={(event) =>{handleChangeFile(event)}}/>
             <span className="text-danger" id="startError">{vallidate.description}</span>
           </div>
         </div>
@@ -107,5 +119,4 @@ function AddNewForm(props) {
     </div>
   );
 }
-
 export default AddNewForm;

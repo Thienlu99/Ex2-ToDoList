@@ -42,8 +42,7 @@ function Todolistitem(props) {
   };
 
   return (
-    
-        <div className="col-md-3">
+    <div className="col-md-3">
           <div className="list-title" style={{ margin: "15px" }}>
             <Card>
               <Card.Body style={{ textAlign: "left" }}>
@@ -69,8 +68,8 @@ function Todolistitem(props) {
               </Card.Body>
             </Card>
           </div>
-        </div>
-     
+        
+          </div>
     
   );
 }
