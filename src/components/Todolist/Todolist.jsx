@@ -7,30 +7,31 @@ Todolist.propTypes = {
 };
 // const todoList = [
 //     {
-//       taskName :"Task 1",
-//       taskAuthor:"Thien",
-//       taskStatus:"New",
-//       taskDess:"this is a tassk, this1.... "
+//       title :"Task 1",
+//       author:"Thien",
+//       status:"New",
+//       description:"this is a tassk, this1.... "
 //     },
 //     {
-//       taskName :"Task 2",
-//       taskAuthor:"Van",
-//       taskStatus:"New",
-//       taskDess:"this is a tassk, this1.... "
+//       title :"Task 2",
+//       author:"Van",
+//       status:"New",
+//       description:"this is a tassk, this1.... "
 //     },
 //     {
-//       taskName :"Task 3",
-//       taskAuthor:"Dat",
-//       taskStatus:"New",
-//       taskDess:"this is a tassk, this1.... "
+//       title :"Task 3",
+//       author:"Dat",
+//       status:"New",
+//       description:"this is a tassk, this1.... "
 //     }
 // ];
-function Todolist(props) {
-  const todoList = JSON.parse(localStorage.getItem("data")) || [];
+function Todolist() {
+  // const todoList = JSON.parse(localStorage.getItem("data")) || [];
+  // localStorage.setItem('data',JSON.stringify(todoList))
     //  const renderTodoItem = () =>{
     //     return  todoList.map((item,index) => (
     //       <>
-    //       <Todolistitem 
+    //       <Todolistitem  
     //         key = {`${item.taskName}_${index}`}
     //         taskName= {item.taskName}
     //         taskAuthor= {item.taskAuthor}
@@ -43,11 +44,14 @@ function Todolist(props) {
     //   }
     return (
         <>
-           {todoList.length > 0 &&
-            todoList.map((item, index) => <Todolistitem  item={item} key={index}  taskName= {item.taskName}
-             taskAuthor= {item.taskAuthor}
-             taskStatus= {item.taskStatus}
-             taskDess= {item.taskDess}/>)}
+           {/* {todoList.length > 0 &&
+            todoList.map((item, index) => <Todolistitem  item={item} key={index}  
+             title= {item.title}
+             author= {item.author}
+             status= {item.status}
+             description= {item.description}/>)} */}
+             <Todolistitem 
+             />
             </>
     );
 }

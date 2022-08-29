@@ -1,0 +1,28 @@
+{
+  "todoItems": [
+    {
+      "id": 0,
+      "title": "Learn Basic React",
+      "creator": "Thien Lu",
+      "descript": "this is a tassk, this1.... "
+    },
+    {
+      "id": 1,
+      "title": "Learn Basic Java",
+      "creator": "Van",
+      "descript": "this is a tassk, this2.... "
+    },
+    {
+      "id": 2,
+      "title": "Learn Basic HTML",
+      "creator": "Dat",
+      "descript": "this is a tassk, this3.... "
+    },
+    {
+      "id": 3,
+      "title": "Learn Basic CSS",
+      "creator": "David",
+      "descript": "this is a tassk, this4.... "
+    }
+  ]
+}
