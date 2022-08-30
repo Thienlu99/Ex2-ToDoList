@@ -2,52 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import moment from "react-moment";
 import "./DoneTask.scss";
+import useFetch from "../../customize/fetch";
+
 import Sidebar from '../../components/sidebar/Sidebar';
 function DoneTask(props) {
-    const [dataCovid, setDatacovid] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  //componentDidMount
-  useEffect(() => {
-    setTimeout( () => {
-      const axios = require("axios").default;
-      
-      // Make a request for a user with a given ID
-      axios
-        .get(
-          "http://localhost:3005/todoItems"
-        )
-        .then(function (response) {
-          // handle success
-          let data = response.data;
-          // data = data.reverse()
-          //format Data
-          setDatacovid(data);
-          //set isLoading
-          setIsLoading(false);
-          setIsError(false);
-          // if (data && data.length > 0) {
-
-          //   data.map((item) => {
-          //     item.Date = moment(item.Date).format("DD/MM/YYYY");
-
-          //     setDatacovid(data);
-          //     return item;
-          //   });
-          // }
-          // console.log( setDatacovid(data))
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-          setIsError(true);
-          setIsLoading(false);
-        })
-        .then(function () {
-          // always executed
-        });
-      }, 3000)
-  }, []); //despen
+  const { data: dataCovid, isLoading, isError }
+        // = useFetch('https://api.covid19api.com/country/vietnam?from=2021-10-01T00:00:00Z&to=2021-10-20T00:00:00Z')
+        = useFetch('http://localhost:3005/todoItems')
   return (
     <div className='container-fluid'>
     <div className='row ' >
@@ -58,9 +19,9 @@ function DoneTask(props) {
         {console.log("checkData>>>", dataCovid)}
         <thead>
           <tr>
-            <th>Confirmed</th>
-            <th>Creator</th>
             <th>Title</th>
+            <th>Creator</th>
+            <th>Descript</th>
           </tr>
         </thead>
 

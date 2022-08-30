@@ -14,7 +14,7 @@ function App() {
       {/* <Body /> */}
       <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/create' element={<Home />} />
+      {/* <Route path='/create' element={<Home />} /> */}
       <Route path='/newtask' element={<Home />} />
       <Route path='/doingtask' element={<Home />} />
       <Route path='/donetask' element={<DoneTask />} />

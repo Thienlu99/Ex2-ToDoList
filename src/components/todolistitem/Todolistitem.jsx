@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import moment from "react-moment";
+import useFetch from "../../customize/fetch";
+import AddNewForm from "../../layout/body/AddNewForm";
+// import useFetch from "../../customize/fetch";
 Todolistitem.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
@@ -14,6 +18,15 @@ Todolistitem.propTypes = {
 //   title: "Task Name",
 // };
 function Todolistitem(props) {
+  const [show, setShow] = useState(false);
+  // const [newData, setNewData] = useState([]);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [dataCovid, setDatacovid] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [isError, setIsError] = useState(false);
+
   // taskStatus
   //destructring Assigment
   // const { title, author, description } = props;
@@ -44,81 +57,46 @@ function Todolistitem(props) {
   };
 
   //API
-  const [dataCovid, setDatacovid] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+
   //componentDidMount
-  useEffect(() => {
-    setTimeout( () => {
-      const axios = require("axios").default;
-      
-      // Make a request for a user with a given ID
-      axios
-        .get(
-          "http://localhost:3005/todoItems"
-        )
-        .then(function (response) {
-          // handle success
-          let data = response.data;
-          // data = data.reverse()
-          //format Data
-          setDatacovid(data);
-          //set isLoading
-          setIsLoading(false);
-          setIsError(false);
-          // if (data && data.length > 0) {
+  const { data: dataBlogs, isLoading, isError }
+  = useFetch('http://localhost:3005/todoItems', false);
 
-          //   data.map((item) => {
-          //     item.Date = moment(item.Date).format("DD/MM/YYYY");
+useEffect(() => {
+  if (dataBlogs && dataBlogs.length > 0) {
+      let data = dataBlogs.slice(0, 9);
+      setDatacovid(data)
+  }
+}, [dataBlogs]);
 
-          //     setDatacovid(data);
-          //     return item;
-          //   });
-          // }
-          // console.log( setDatacovid(data))
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-          setIsError(true);
-          setIsLoading(false);
-        })
-        .then(function () {
-          // always executed
-        });
-      }, 3000)
-  }, []); //despen
+const handleAddNew = (blog) => {
+  let data = dataCovid;
+  data.unshift(blog);
+
+  setShow(false);
+  setDatacovid(data);
+}
+
+  const deletePost = (id) => {
+    let data = dataCovid;
+    data = data.filter(item => item.id !== id)
+    setDatacovid(data);
+}
   return (
-    // <div className="col-md-3">
-    //       <div className="list-title" style={{ margin: "15px" }}>
-    //         <Card>
-    //           <Card.Body style={{ textAlign: "left" }}>
-    //             <Card.Title>Title: {title}</Card.Title>
-    //             <p>Author: {author}</p>
-    //             <p
-    //               id="textChange"
-    //               style={{ fontWeight: "bold", color: hangleChangeColor(text) }}
-    //             >
-    //               Status: {text}
-    //             </p>
-    //             <hr style={{ color: "blue" }} />
-    //             <Card.Text style={{ fontWeight: "bold" }}>
-    //               Desscription:
-    //             </Card.Text>
-    //             <Card.Text>{description}</Card.Text>
-    //             {/* <h3>{status}</h3> */}
-    //             <Button variant="primary" onClick={changeText}>
-    //               {status}
-    //             </Button>
-    //             {/* <Button variant="primary" onClick={()=>setStatus("Done")}>Done</Button>
-    //         <Button variant="primary" onClick={()=>setStatus("Renew")}>Renew</Button> */}
-    //           </Card.Body>
-    //         </Card>
-    //       </div>
-        
-    //       </div>
-
+ 
+// variant="primary"
     <>
+    <button  className="btn btn-primary"  onClick={handleShow}>
+              + Add new blog
+          </button>
+          <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                  <Modal.Title>Add New TodoList</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  <AddNewForm handleAddNew={handleAddNew} />
+              </Modal.Body>
+          </Modal>
     {isError === false &&
       isLoading === false &&
       dataCovid &&
@@ -146,13 +124,17 @@ function Todolistitem(props) {
                 <Button variant="primary" onClick={changeText}>
                   {status}
                 </Button>
+                <Button className="btn btn-primary ml-3" onClick={() => deletePost(item.id)}>Delete</Button>
                 {/* <Button variant="primary" onClick={()=>setStatus("Done")}>Done</Button>
             <Button variant="primary" onClick={()=>setStatus("Renew")}>Renew</Button> */}
               </Card.Body>
             </Card>
           </div>
         
+
+         
           </div>
+          
         );
       })}
     {isLoading === true && (
